@@ -1,11 +1,6 @@
 <div class="product-container">
   <div class="product-index">
-    <div *ngFor="let product of products">
-      <img [src]="product.url"
-           [alt]="product.name"
-           [title]="product.name">
-      <div>{{ product.name }}</div>
-      <div>{{ product.price | currency: 'USD' : 'symbol' : '1.2-2' }}</div>
-    </div>
+    <store-product-item *ngFor="let product of products"
+        [product]="product" ></store-product-item>
   </div>
 </div>

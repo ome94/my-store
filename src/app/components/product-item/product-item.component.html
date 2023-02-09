@@ -1,0 +1,8 @@
+<div class="product-container">
+  <img [src]="product.url"
+       [alt]="product.name"
+       [title]="product.name"
+       class="product-image">
+  <div>{{ product.name }}</div>
+  <div>{{ product.price | currency: 'USD' : 'symbol' : '1.2-2' }}</div>
+</div>
