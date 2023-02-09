@@ -9,7 +9,7 @@ import { Product } from '../interfaces/product';
   providedIn: 'root'
 })
 export class ProductService {
-  productUrl = 'assets/data.json';
+  private productUrl = 'assets/data.json';
 
   constructor(private http: HttpClient) { }
 
