@@ -5,6 +5,18 @@
   padding: 12px;
 }
 
+.header ul {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.header li{
+  margin-left: 15px;
+  display: inline-block;
+}
+
 a {
   color: #ffffff;
 }
