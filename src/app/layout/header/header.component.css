@@ -1,4 +1,5 @@
 .header {
+  display: flex;
   text-align: center;
   background: #33B5E5;
   color: #fff;
@@ -18,5 +19,6 @@
 }
 
 a {
+  text-decoration: none;
   color: #ffffff;
 }
