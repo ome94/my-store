@@ -1,0 +1,14 @@
+<div class="detail-container">
+  <div class="detail-item">
+    <h1>{{ product.name }}</h1>
+    <img [src]="product.url"
+         [title]="product.name">
+    <p>Price: {{ product.price | currency:'USD':'symbol':'1.2-2'}}</p>
+  </div>
+  <div class="detail-item">
+    <article>{{ product.description }}</article>
+  </div>
+</div>
+<div class="detail-container back-link">
+  <a routerLink="/products">Back</a>
+</div>
