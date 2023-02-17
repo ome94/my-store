@@ -1,12 +1,16 @@
 <div class="detail-container">
   <div class="detail-item">
     <h1>{{ product.name }}</h1>
-    <img [src]="product.url"
-         [title]="product.name">
+    <div class="product-image">
+      <store-product-image [product]="product"></store-product-image>
+    </div>
     <p>Price: {{ product.price | currency:'USD':'symbol':'1.2-2'}}</p>
   </div>
   <div class="detail-item">
-    <article>{{ product.description }}</article>
+    <article>
+      <h5>Description</h5>
+      <p>{{ product.description }}</p>
+    </article>
   </div>
 </div>
 <div class="detail-container back-link">
