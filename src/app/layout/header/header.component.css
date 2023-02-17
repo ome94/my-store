@@ -18,7 +18,8 @@
   display: inline-block;
 }
 
-a {
+ a {
+  display: block;
   text-decoration: none;
   color: #ffffff;
 }

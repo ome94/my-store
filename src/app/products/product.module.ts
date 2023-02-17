@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from "@angular/forms";
 import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 import { ProductRoutingModule } from './product-routing.module';
 
@@ -15,7 +17,9 @@ import { ProductItemDetailComponent } from './components/product-item-detail/pro
   ],
   imports: [
     CommonModule,
-    ProductRoutingModule
+    FormsModule,
+    ProductRoutingModule,
+    FontAwesomeModule
   ]
 })
 export class ProductModule { }
