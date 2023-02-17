@@ -1,0 +1,18 @@
+<img [src]="product.url"
+     [alt]="product.name"
+     [title]="product.name">
+<div *ngIf="orderedQty" class="qty">
+  <span class="qty-value">{{ orderedQty }}</span>
+  <div class="qty-edit">
+    <fa-icon [icon]="editQty ? xIcon : penIcon" size="xl" (click)="switchEdit()"></fa-icon>
+    <input  *ngIf="editQty"
+            type="number" min="0"
+            [(ngModel)]="orderedQty"
+            (blur)="switchEdit()">
+  </div>
+  <fa-icon [icon]="rmIcon" size="xl" (click)="remove()"></fa-icon>
+</div>
+<div class="btns">
+  <fa-icon [icon]="addIcon" size="xl" (click)="add()"></fa-icon>
+  <fa-icon [icon]="dropIcon" size="xl" (click)="drop()"></fa-icon>
+</div>

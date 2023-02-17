@@ -1,0 +1,49 @@
+img {
+  width: 100%;
+}
+
+.btns {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 8px;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: column wrap;
+}
+
+.btns > * {
+  background-color: #e3eff3;
+}
+
+.qty {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 7px;
+  display: flex;
+  max-width: 60%;
+  justify-content: space-between;
+  background-color: #e3eff3;
+}
+
+.qty > * {
+  padding: 0.2rem 0.7rem;
+}
+
+.qty input {
+  width: 100%;
+}
+
+.qty-edit {
+  display: flex;
+  flex-flow: row-reverse wrap;
+}
+
+.qty-value {
+  border: 1px solid #33B5E5;
+  background-color: #33B5E5;
+  color: white;
+  font-weight: 700;
+  font-size: larger;
+}
