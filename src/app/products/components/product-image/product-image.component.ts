@@ -1,8 +1,9 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { faPen, faPlus, faMinus, faCircleXmark, faSackXmark } from '@fortawesome/free-solid-svg-icons';
 
+import { CartService } from '../../../cart/services/cart.service';
+
 import { Product } from '../../interfaces/product';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'store-product-image',
@@ -12,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 export class ProductImageComponent implements OnChanges {
   @Input() product: Product = {};
   
-  constructor(private userService: UserService) {}
+  constructor(private cartService: CartService) {}
   
   addIcon = faPlus;
   dropIcon = faMinus;
@@ -22,7 +23,7 @@ export class ProductImageComponent implements OnChanges {
 
   editQty = false;
   
-  cart = this.userService.myCart
+  cart = this.cartService.myCart
 
   ngOnChanges(): void {
     this._orderedQty = this.cart.find(item => 
@@ -39,34 +40,7 @@ export class ProductImageComponent implements OnChanges {
   set orderedQty(qty: number) {
     qty = qty > 0 ? qty : 0;
 
-    let idx = this.cart.findIndex(
-      item => item.productId === this.product.id
-    );
-
-    if(idx === -1){ // item is not in cart
-      if (qty < 1) return;
-
-      const newItem = {
-        productId: <number>this.product.id,
-        quantity: qty
-      };
-
-      // TODO:
-      // make order request for product using a service
-      this.cart.push(newItem);
-      
-    } else if (qty < 1) { // item is completely dropped from cart
-      const [droppedItem] = this.cart.splice(idx, 1);
-      
-      // TODO
-      // delete dropped item from db using a service
-
-    } else {
-      // TODO:
-      // Increase cart item qty in db
-
-      this.cart[idx].quantity = qty;
-    }
+    this.cartService.editCart(<number>this.product.id, qty);
     
     this._orderedQty = qty;
   }
