@@ -1,0 +1,82 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+
+fieldset {
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 1 80vh;
+  justify-content: space-around;
+}
+
+label {
+  margin-bottom: 1rem;
+}
+
+label p {
+  margin-bottom: 0.25rem;
+}
+
+.invalid {
+  border: 1px solid  red;
+  box-shadow: 1px 1px 3px 1px red;
+}
+
+button {
+  border: none;
+  background-color: #33e5bc;
+  padding: 0.25rem 1rem;
+  color: #fff;
+}
+
+button:disabled {
+  opacity: 0.625;
+}
+
+button:disabled:hover:after {
+  content: "Please fill in the required fields";
+  position: absolute;
+  background-color: #f5f5f5;
+  color: black;
+  bottom: -25px;
+  right: -30px;
+}
+
+.submit {
+  position: relative;
+}
+
+.form-margin {
+  flex-basis: 40%;
+  margin-bottom: 12px;
+}
+
+.cart-item-details {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: left;
+  margin-left: 80px;
+}
+
+.cart-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 64px;
+}
+
+.cart-panel {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.empty-cart-message {
+  display: flex;
+  justify-content: center;
+  margin-top: 64px;
+}

@@ -5,3 +5,7 @@ export interface Product {
   url?: string;
   description?: string;
 }
+
+export interface OrderedProduct extends Product {
+  quantity: number;
+}

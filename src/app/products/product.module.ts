@@ -22,6 +22,10 @@ import { ProductImageComponent } from './components/product-image/product-image.
     FormsModule,
     ProductRoutingModule,
     FontAwesomeModule
+  ],
+  exports: [
+    ProductItemComponent,
+    FormsModule
   ]
 })
 export class ProductModule { }

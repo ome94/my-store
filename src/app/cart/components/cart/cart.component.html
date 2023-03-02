@@ -1,0 +1,63 @@
+<div class="cart-container">
+  <div class="cart-panel">
+    <h2>Total: {{ total }}</h2>
+    <ul>
+      <div>
+        <store-product-item *ngFor="let item of orderedItems"
+          class="cart-item-details" 
+          [product]="item">
+        </store-product-item>
+      </div>
+    </ul>
+  </div>
+  <div class="form-margin">
+    <h4>Details</h4>
+    <form #chkOutForm="ngForm"
+      (ngSubmit)="checkout(chkOutForm)">
+      <fieldset>
+        <legend>Checkout</legend>
+        <label for="name">
+          <p>Name (*required)</p>
+          <input type="text" id="name" name="name"
+            placeholder="Full Name (min. 3 characters)"
+            [(ngModel)]="userInput.name"
+            #nameField="ngModel"
+            minlength="3" required
+            [ngClass]="{invalid: nameField.touched&&nameField.invalid}">
+          <p *ngIf="nameField.touched&&nameField.invalid">
+            A minimum of 3 characters are expected for your name.
+          </p>
+        </label>
+        <label for="address">
+          <p>Address (*required)</p>
+          <input type="text" id="address" name="address" 
+            placeholder="Address (min. 6 characters)"
+            [(ngModel)]="userInput.address" #addrField="ngModel"
+            minlength="6" required
+            [ngClass]="{invalid: addrField.touched&&addrField.invalid}">
+          <p *ngIf="addrField.touched&&addrField.invalid">
+            A minimum of 6 characters are expected for your valid contact address.
+          </p>  
+        </label>
+        <label for="credit-card">
+          <p>Credit Card Number (*required)</p>
+          <input id="credit-card" name="credit-card" 
+            placeholder="1234-xxxx-xxxx-xxxx" 
+            maxlength="19"
+            [(ngModel)]="userInput.card" #credCard="ngModel"
+            pattern="(?:\d{4}[-\s]?){3}\d{4}" required
+            [ngClass]="{invalid: credCard.touched&&credCard.invalid}">
+            <p *ngIf="credCard.touched&&credCard.invalid">
+              Input your 16 digit credit card number
+            </p>
+        </label>
+      </fieldset>
+      <div class="submit">
+        <button type="submit" 
+          [disabled]="chkOutForm.invalid">
+          Checkout
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
