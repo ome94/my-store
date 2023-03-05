@@ -30,13 +30,13 @@ export class CartService {
     }
   ]
 
-  editCart(productId: number, quantity: number) {
+  editCart(productId: number, quantity: number|null) {
     let idx = this.myCart.findIndex(
       item => item.productId === productId
     );
 
     if(idx === -1){ // item is not in cart
-      if (quantity < 1) return;
+      if (<number>quantity < 1) return;
 
       const newItem = { productId, quantity };
 
@@ -47,6 +47,12 @@ export class CartService {
         product => this.orderedItems.push({...product, quantity})
       )
       
+    } else if (quantity || quantity === null) {
+      // TODO:
+      // Increase cart item qty in db
+
+      this.myCart[idx].quantity = quantity;
+      this.orderedItems[idx].quantity = quantity;
     } else if (quantity < 1) { // item is completely dropped from cart
       const [droppedItem] = this.myCart.splice(idx, 1);
       this.orderedItems.splice(idx, 1);
@@ -54,13 +60,7 @@ export class CartService {
       // TODO
       // delete dropped item from db using a service
 
-    } else {
-      // TODO:
-      // Increase cart item qty in db
-
-      this.myCart[idx].quantity = quantity;
-      this.orderedItems[idx].quantity = quantity;
-    }
+    } 
 
   }
 

@@ -22,15 +22,7 @@ export class ProductImageComponent implements OnChanges {
   xIcon = faCircleXmark;
 
   editQty = false;
-  
   cart = this.cartService.myCart
-
-  ngOnChanges(): void {
-    this._orderedQty = this.cart.find(item => 
-      item.productId === this.product.id
-    )?.quantity || 0;
-  }
-
   private _orderedQty = 0;
   
   get orderedQty(): number {
@@ -38,18 +30,24 @@ export class ProductImageComponent implements OnChanges {
   }
 
   set orderedQty(qty: number) {
-    qty = qty > 0 ? qty : 0;
+    qty = qty > 0 || (this.editQty && !qty) ? qty : 0;
 
     this.cartService.editCart(<number>this.product.id, qty);
-    
+
     this._orderedQty = qty;
+  }
+
+  ngOnChanges(): void {
+    this._orderedQty = this.cart.find(item => 
+      item.productId === this.product.id
+    )?.quantity || 0;
   }
 
   add() {
     this.orderedQty += 1;
   }
 
-  drop() {
+  reduce() {
     this.orderedQty -= 1
   }
 

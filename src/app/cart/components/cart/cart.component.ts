@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { CartService } from '../../services/cart.service';
 
-import { CartItem } from 'src/app/cart/interfaces/cart-item';
 import { OrderedProduct } from 'src/app/products/interfaces/product';
 import { NgForm } from '@angular/forms';
 
@@ -13,7 +12,6 @@ import { NgForm } from '@angular/forms';
 })
 export class CartComponent implements OnInit {
   orderedItems: OrderedProduct[] = [];
-  cart: CartItem[] = [];
   userInput = {
     name: '',
     address: '',
@@ -24,14 +22,14 @@ export class CartComponent implements OnInit {
     let total = 0
     
     for (let item of this.orderedItems){
-      total += item.quantity * <number>item.price
+      if (item.quantity)
+        total += item.quantity * <number>item.price;
     }
     return <unknown>total.toFixed(2) as number;
   }
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.cart = this.cartService.myCart
     this.orderedItems = this.cartService.orderedItems;
   }
 

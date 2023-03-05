@@ -1,7 +1,7 @@
 <img [src]="product.url"
      [alt]="product.name"
      [title]="product.name">
-<div *ngIf="orderedQty" class="qty">
+<div *ngIf="orderedQty||orderedQty===null" class="qty">
   <span class="qty-value">{{ orderedQty }}</span>
   <div class="qty-edit">
     <fa-icon [icon]="editQty ? xIcon : penIcon" size="xl" (click)="switchEdit()"></fa-icon>
@@ -14,5 +14,5 @@
 </div>
 <div class="btns">
   <fa-icon [icon]="addIcon" size="xl" (click)="add()"></fa-icon>
-  <fa-icon [icon]="dropIcon" size="xl" (click)="drop()"></fa-icon>
+  <fa-icon [icon]="dropIcon" size="xl" (click)="reduce()"></fa-icon>
 </div>

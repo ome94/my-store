@@ -7,5 +7,5 @@ export interface Product {
 }
 
 export interface OrderedProduct extends Product {
-  quantity: number;
+  quantity: number|null;
 }
