@@ -4,6 +4,8 @@ import { ProductService } from '../../products/services/product.service';
 import { OrderedProduct } from '../../products/interfaces/product';
 
 import { CartItem } from '../interfaces/cart-item';
+import { Router } from '@angular/router';
+import { UserDetails } from '../interfaces/user-details';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,8 @@ import { CartItem } from '../interfaces/cart-item';
 export class CartService {
   orderedItems: OrderedProduct[] = []
 
-  constructor(private productService: ProductService) { 
+  constructor(private productService: ProductService,
+      private router: Router) { 
     this.getOrderedItems();
   }
 
@@ -29,6 +32,16 @@ export class CartService {
       quantity: 6
     }
   ]
+
+  get total(): number {
+    let total = 0
+    
+    for (let item of this.orderedItems){
+      if (item.quantity)
+        total += item.quantity * <number>item.price;
+    }
+    return <unknown>total.toFixed(2) as number;
+  }
 
   editCart(productId: number, quantity: number|null) {
     let idx = this.myCart.findIndex(
@@ -74,5 +87,9 @@ export class CartService {
           });
       })
     );
+  }
+
+  checkout({name}:UserDetails) {
+    this.router.navigate(['/success'], {queryParams: {customer: name}});
   }
 }

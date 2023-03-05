@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { CartService } from '../../services/cart.service';
 
-import { OrderedProduct } from 'src/app/products/interfaces/product';
-import { NgForm } from '@angular/forms';
+import { OrderedProduct } from '../../../products/interfaces/product';
+import { UserDetails } from '../../interfaces/user-details';
 
 @Component({
   selector: 'store-cart',
@@ -12,20 +13,14 @@ import { NgForm } from '@angular/forms';
 })
 export class CartComponent implements OnInit {
   orderedItems: OrderedProduct[] = [];
-  userInput = {
+  userInput: UserDetails = {
     name: '',
     address: '',
     card: ''
   }
 
   get total(): number {
-    let total = 0
-    
-    for (let item of this.orderedItems){
-      if (item.quantity)
-        total += item.quantity * <number>item.price;
-    }
-    return <unknown>total.toFixed(2) as number;
+    return this.cartService.total;
   }
   constructor(private cartService: CartService) {}
 
@@ -34,6 +29,6 @@ export class CartComponent implements OnInit {
   }
 
   checkout(form: NgForm) {
-    console.log(form);
+    this.cartService.checkout(form.value);
   }
 }

@@ -8,18 +8,20 @@ import { ProductModule } from './products/product.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { CartComponent } from './cart/components/cart/cart.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    CartComponent
+    CartComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
-    ProductModule
+    ProductModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
