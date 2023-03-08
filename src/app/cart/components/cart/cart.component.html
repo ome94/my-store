@@ -21,7 +21,8 @@
           <p>Name (*required)</p>
           <input type="text" id="name" name="name"
             placeholder="Full Name (min. 3 characters)"
-            [(ngModel)]="userInput.name"
+            [ngModel]="userInput.name"
+            (ngModelChange)="userInput.name=$event"
             #nameField="ngModel"
             minlength="3" required
             [ngClass]="{invalid: nameField.touched&&nameField.invalid}">
@@ -33,7 +34,9 @@
           <p>Address (*required)</p>
           <input type="text" id="address" name="address" 
             placeholder="Address (min. 6 characters)"
-            [(ngModel)]="userInput.address" #addrField="ngModel"
+            [ngModel]="userInput.address"
+            (ngModelChange)="userInput.address=$event"
+            #addrField="ngModel"
             minlength="6" required
             [ngClass]="{invalid: addrField.touched&&addrField.invalid}">
           <p *ngIf="addrField.touched&&addrField.invalid">
@@ -45,7 +48,9 @@
           <input id="credit-card" name="credit-card" 
             placeholder="1234-xxxx-xxxx-xxxx" 
             maxlength="19"
-            [(ngModel)]="userInput.card" #credCard="ngModel"
+            [ngModel]="userInput.card"
+            (ngModelChange)="userInput.card=$event"
+            #credCard="ngModel"
             pattern="(?:\d{4}[-\s]?){3}\d{4}" required
             [ngClass]="{invalid: credCard.touched&&credCard.invalid}">
             <p *ngIf="credCard.touched&&credCard.invalid">

@@ -7,7 +7,8 @@
     <fa-icon [icon]="editQty ? xIcon : penIcon" size="xl" (click)="switchEdit()"></fa-icon>
     <input  *ngIf="editQty"
             type="number" min="0"
-            [(ngModel)]="orderedQty"
+            [ngModel]="orderedQty"
+            (ngModelChange)="orderedQty=$event"
             (blur)="switchEdit()">
   </div>
   <fa-icon [icon]="rmIcon" size="xl" (click)="remove()"></fa-icon>
