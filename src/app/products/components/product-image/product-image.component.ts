@@ -1,54 +1,52 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faPen, faPlus, faMinus, faCircleXmark, faSackXmark } from '@fortawesome/free-solid-svg-icons';
 
-import { CartService } from '../../../cart/services/cart.service';
-
-import { Product } from '../../interfaces/product';
+import { OrderedProduct, Product } from '../../interfaces/product';
 
 @Component({
   selector: 'store-product-image',
   templateUrl: './product-image.component.html',
   styleUrls: ['./product-image.component.css']
 })
-export class ProductImageComponent implements OnChanges {
+export class ProductImageComponent implements OnInit {
   @Input() product: Product = {};
-  
-  constructor(private cartService: CartService) {}
+  @Input() itemOrdered?: OrderedProduct;
+  @Output() changeQty = new EventEmitter<number|null>();
   
   addIcon = faPlus;
-  dropIcon = faMinus;
+  reduceIcon = faMinus;
   penIcon = faPen;
   rmIcon = faSackXmark;
   xIcon = faCircleXmark;
 
   editQty = false;
-  cart = this.cartService.myCart
-  private _orderedQty = 0;
+  private _orderedQty = this.itemOrdered?.quantity
   
-  get orderedQty(): number {
+  get orderedQty(): number|null|undefined {
     return this._orderedQty;
   }
 
-  set orderedQty(qty: number) {
-    qty = qty > 0 || (this.editQty && !qty) ? qty : 0;
+  set orderedQty(qty: number|null|undefined) {
+    qty = this.editQty && (!qty || qty < 1) ? null : qty
 
-    this.cartService.editCart(<number>this.product.id, qty);
-
+    this.changeQty.emit(qty);
     this._orderedQty = qty;
   }
 
-  ngOnChanges(): void {
-    this._orderedQty = this.cart.find(item => 
-      item.productId === this.product.id
-    )?.quantity || 0;
+  ngOnInit() {
+    this._orderedQty = this.itemOrdered?.quantity;
   }
 
   add() {
-    this.orderedQty += 1;
+    if (!this.orderedQty || <number>this.orderedQty < 0)
+      this._orderedQty = 0;
+      
+    this.orderedQty = <number>this.orderedQty + 1;
   }
 
   reduce() {
-    this.orderedQty -= 1
+    if(this.orderedQty)
+      this.orderedQty -= 1
   }
 
   remove() {

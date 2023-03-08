@@ -2,7 +2,10 @@
   <div class="detail-item">
     <h1>{{ product.name }}</h1>
     <div class="product-image">
-      <store-product-image [product]="product"></store-product-image>
+      <store-product-image
+        [product]="product"
+        [itemOrdered]="itemOrdered"
+        (changeQty)="changeCart($event)"></store-product-image>
     </div>
     <p>Price: {{ product.price | currency:'USD':'symbol':'1.2-2'}}</p>
   </div>

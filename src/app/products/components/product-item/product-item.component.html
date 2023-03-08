@@ -1,6 +1,10 @@
 <li class="product-container">
   <div class="product-image">
-    <store-product-image [product]="product"></store-product-image>
+    <store-product-image
+      [product]="product"
+      [itemOrdered]="itemOrdered"
+      (changeQty)="changeQty($event)">
+    </store-product-image>
   </div>
   <a class="product-info" [routerLink]="['/products', product.id]">
     <div class="product-name">{{ product.name }}</div>

@@ -5,7 +5,8 @@
       <div>
         <store-product-item *ngFor="let item of orderedItems"
           class="cart-item-details" 
-          [product]="item">
+          [product]="item"
+          (cartChange)="editCart($event)">
         </store-product-item>
       </div>
     </ul>

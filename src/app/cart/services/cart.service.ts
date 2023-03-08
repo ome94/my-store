@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ProductService } from '../../products/services/product.service';
 import { OrderedProduct } from '../../products/interfaces/product';
 
 import { CartItem } from '../interfaces/cart-item';
-import { Router } from '@angular/router';
 import { UserDetails } from '../interfaces/user-details';
 
 @Injectable({
@@ -43,7 +43,7 @@ export class CartService {
     return <unknown>total.toFixed(2) as number;
   }
 
-  editCart(productId: number, quantity: number|null) {
+  editCart({productId, quantity}: CartItem) {
     let idx = this.myCart.findIndex(
       item => item.productId === productId
     );
@@ -81,10 +81,13 @@ export class CartService {
     this.myCart.map(item =>
       this.productService.getProduct(item.productId).subscribe(
         product => {
-          this.orderedItems.push({
+          let idx = this.myCart.findIndex(
+            itm => itm.productId === product.id
+          );
+          this.orderedItems[idx] = {
             ...product,
             quantity: item.quantity
-          });
+          };
       })
     );
   }

@@ -5,6 +5,7 @@ import { CartService } from '../../services/cart.service';
 
 import { OrderedProduct } from '../../../products/interfaces/product';
 import { UserDetails } from '../../interfaces/user-details';
+import { CartItem } from '../../interfaces/cart-item';
 
 @Component({
   selector: 'store-cart',
@@ -12,7 +13,7 @@ import { UserDetails } from '../../interfaces/user-details';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  orderedItems: OrderedProduct[] = [];
+  orderedItems = this.cartService.orderedItems;
   userInput: UserDetails = {
     name: '',
     address: '',
@@ -26,6 +27,10 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderedItems = this.cartService.orderedItems;
+  }
+
+  editCart(item: CartItem) {
+    this.cartService.editCart(item)
   }
 
   checkout(form: NgForm) {
