@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ProductService } from '../../products/services/product.service';
 import { OrderedProduct } from '../../products/interfaces/product';
@@ -14,7 +15,8 @@ export class CartService {
   orderedItems: OrderedProduct[] = []
 
   constructor(private productService: ProductService,
-      private router: Router) { 
+      private router: Router,
+      private toastService: MatSnackBar) { 
     this.getOrderedItems();
   }
 
@@ -57,8 +59,13 @@ export class CartService {
       // make order request for product using a service
       this.myCart.push(newItem);
       this.productService.getProduct(productId).subscribe(
-        product => this.orderedItems.push({...product, quantity})
-      )
+        product => {
+          this.orderedItems.push({...product, quantity})
+          
+          let message = `${product.name}(Product ID: ${product.id}) added to cart`;
+          this.toastService.open(message, 'DISMISS');
+      });
+
       
     } else if (quantity || quantity === null) {
       // TODO:
@@ -67,12 +74,14 @@ export class CartService {
       this.myCart[idx].quantity = quantity;
       this.orderedItems[idx].quantity = quantity;
     } else if (quantity < 1) { // item is completely dropped from cart
-      const [droppedItem] = this.myCart.splice(idx, 1);
-      this.orderedItems.splice(idx, 1);
+      this.myCart.splice(idx, 1);
+      const [productDropped] = this.orderedItems.splice(idx, 1);
       
       // TODO
       // delete dropped item from db using a service
 
+      let message = `${productDropped.name}(Product ID: ${productDropped.id}) removed from cart`;
+      this.toastService.open(message, 'DISMISS');
     } 
 
   }
